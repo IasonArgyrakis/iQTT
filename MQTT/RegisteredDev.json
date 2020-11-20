@@ -1,0 +1,29 @@
+{
+  "Devices": [
+    {
+      "isAuthourized": true,
+      "subscriptions": [],
+      "publications": [],
+      "DeviceId": "json Bedroom",
+      "username": "json Bedroom+73",
+      "password": "8468"
+    },
+    {
+      "isAuthourized": true,
+      "subscriptions": [],
+      "publications": [],
+      "DeviceId": "mqtt-explorer-1f3eedcd",
+      "username": "mqtt-explorer-1f3eedcd+fd",
+      "password": "3d72"
+    },
+    
+    {
+      "isAuthourized": true,
+      "subscriptions": [],
+      "publications": [],
+      "DeviceId": "root.1605876242083",
+      "username": "root.1605876242083+78",
+      "password": "8f7f"
+    }
+  ]
+}
