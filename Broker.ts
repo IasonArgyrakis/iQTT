@@ -2,7 +2,7 @@ import{MqttErrorObj,MqttClient,MqttDeviceList} from "./MQTT/MqttObj";
 
 const aedes = require("aedes")();
 const server = require("net").createServer(aedes.handle);
-const port = 1883;
+const port = 3000;
 
 /*
 const options = {
@@ -21,7 +21,7 @@ server.listen(port, function () {
 const DeviceList =new MqttDeviceList()
 aedes.authenticate = async function (client, username, password, callback) {
   
-   if(DeviceList.isAuthorized(username,password)){
+   if(DeviceList.VerifyAuth(username,password)){
 
 
     console.log("Pre Known Client",client.id,"Connected");
@@ -47,4 +47,4 @@ aedes.authenticate = async function (client, username, password, callback) {
   }
 
 };
-
+                        

@@ -72,7 +72,7 @@ class MqttDeviceList {
       );
     }
   }
-  public isAuthorized(username, password) {
+  public VerifyAuth(username, password) {
     let query = db
       .get("Devices")
       .find({ username: username }, { password: password })

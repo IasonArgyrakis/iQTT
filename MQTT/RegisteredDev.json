@@ -16,7 +16,6 @@
       "username": "mqtt-explorer-1f3eedcd+fd",
       "password": "3d72"
     },
-    
     {
       "isAuthourized": true,
       "subscriptions": [],
@@ -24,6 +23,30 @@
       "DeviceId": "root.1605876242083",
       "username": "root.1605876242083+78",
       "password": "8f7f"
+    },
+    {
+      "isAuthourized": true,
+      "subscriptions": [],
+      "publications": [],
+      "DeviceId": "json-esp",
+      "username": "json-esp+e3",
+      "password": "805f"
+    },
+    {
+      "isAuthourized": true,
+      "subscriptions": [],
+      "publications": [],
+      "DeviceId": "mqtt-explorer-007fb2e4",
+      "username": "mqtt-explorer-007fb2e4+2d",
+      "password": "a10b"
+    },
+    {
+      "isAuthourized": true,
+      "subscriptions": [],
+      "publications": [],
+      "DeviceId": "DVES_5EC47A",
+      "username": "DVES_5EC47A+44",
+      "password": "9f38"
     }
   ]
 }
