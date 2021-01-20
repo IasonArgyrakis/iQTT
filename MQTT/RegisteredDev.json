@@ -2,7 +2,9 @@
   "Devices": [
     {
       "isAuthourized": true,
-      "subscriptions": ["cmnd/json-Bedroom/POWER"],
+      "subscriptions": [
+        "cmnd/json-Bedroom/POWER"
+      ],
       "publications": [],
       "DeviceId": "json Bedroom",
       "username": "json Bedroom+73",
@@ -10,8 +12,12 @@
     },
     {
       "isAuthourized": true,
-      "subscriptions": ["*"],
-      "publications": ["*"],
+      "subscriptions": [
+        "*"
+      ],
+      "publications": [
+        "*"
+      ],
       "DeviceId": "mqtt-explorer-1f3eedcd",
       "username": "mqtt-explorer-1f3eedcd+fd",
       "password": "3d72"
@@ -47,6 +53,14 @@
       "DeviceId": "DVES_5EC47A",
       "username": "DVES_5EC47A+44",
       "password": "9f38"
+    },
+    {
+      "isAuthourized": true,
+      "subscriptions": [],
+      "publications": [],
+      "DeviceId": "API",
+      "username": "API+67",
+      "password": "042f"
     }
   ]
 }

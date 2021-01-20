@@ -1,8 +1,11 @@
+
 import{MqttErrorObj,MqttClient,MqttDeviceList} from "./MQTT/MqttObj";
+
 
 const aedes = require("aedes")();
 const server = require("net").createServer(aedes.handle);
 const port = 3000;
+
 
 /*
 const options = {
@@ -41,9 +44,10 @@ aedes.authenticate = async function (client, username, password, callback) {
     
   } 
   else {
+    console.log(client)
     let error=new MqttErrorObj("Auth error",4);
     callback(error, null);
-    console.log("Client Denined",client.id);
+    console.log("Client Denined make sure it is AUTH",client.id);
   }
 
 };
@@ -54,4 +58,45 @@ aedes.authenticate = async function (client, username, password, callback) {
 //   }
 
 // }
+
+
+
+
+
+
+
+// client.on('connect', function () {
+//   client.subscribe('test');
+//   client.publish('test', 'Hello mqtt');
+// })
+
+// client.on('message', function (topic, message) {
+//   // message is Buffer
+//   console.log("------>"+message.toString());
+//   client.end();
+// });
+
+
+const express = require('express')
+const app = express()
+const EXport = 3002
+import {MQHTTP}from "./MQTT/MQHTTP"
+var MPI = new MQHTTP
+
+app.get('/', (req, res) => {
+  res.send('Hello World!')
+})
+app.get('/t', (req, res) => {
+console.log("TOGGLE");
+
+MPI.issuePublication("cmnd/json-Bedroom/POWER", "2")
+
+
+  res.send('Hello World!')
+})
+
+app.listen(EXport, () => {
+  console.log(`EXPample app listening at http://localhost:${EXport}`)
+})
+
                         
