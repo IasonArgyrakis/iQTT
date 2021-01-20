@@ -68,7 +68,7 @@ class MqttDeviceList {
       db.get("Devices").push(client).write();
     } else {
       console.log(
-        "Device Duplicate(IGNORED)-Update Client Creds and RegisteredDev.json"
+        "Device Duplicate(IGNORED)-Update Client Creds and RegisteredDev.json and Restart"
       );
     }
   }

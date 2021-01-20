@@ -47,7 +47,7 @@ aedes.authenticate = async function (client, username, password, callback) {
   }
 
 };
-// this is to disable unauth publication 
+// this is to stop  unauth publication 
 // aedes.authorizePublish = async function (client, packet, callback) {
 //   if (DeviceList.VerifyPubTopic(client.id,packet.topic)) {
 //     callback(null)
