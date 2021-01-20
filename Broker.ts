@@ -8,7 +8,7 @@ const port = 3000;
 const options = {
   key: fs.readFileSync('src/keys/server.pem'),
   cert: fs.readFileSync('src/keys/private2.pub')
-}
+}R
 */
 /*const server = require('tls').createServer(
     //options,
@@ -22,7 +22,7 @@ const DeviceList =new MqttDeviceList()
 aedes.authenticate = async function (client, username, password, callback) {
   
    if(DeviceList.VerifyAuth(username,password)){
-
+ 
 
     console.log("Pre Known Client",client.id,"Connected");
     callback(null, true)
@@ -47,4 +47,11 @@ aedes.authenticate = async function (client, username, password, callback) {
   }
 
 };
+// this is to disable unauth publication 
+// aedes.authorizePublish = async function (client, packet, callback) {
+//   if (DeviceList.VerifyPubTopic(client.id,packet.topic)) {
+//     callback(null)
+//   }
+
+// }
                         

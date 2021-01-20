@@ -2,7 +2,7 @@
   "Devices": [
     {
       "isAuthourized": true,
-      "subscriptions": [],
+      "subscriptions": ["cmnd/json-Bedroom/POWER"],
       "publications": [],
       "DeviceId": "json Bedroom",
       "username": "json Bedroom+73",
@@ -10,8 +10,8 @@
     },
     {
       "isAuthourized": true,
-      "subscriptions": [],
-      "publications": [],
+      "subscriptions": ["*"],
+      "publications": ["*"],
       "DeviceId": "mqtt-explorer-1f3eedcd",
       "username": "mqtt-explorer-1f3eedcd+fd",
       "password": "3d72"

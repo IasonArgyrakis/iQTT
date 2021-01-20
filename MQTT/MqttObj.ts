@@ -73,7 +73,7 @@ class MqttDeviceList {
     }
   }
   public VerifyAuth(username, password) {
-    let query = db
+    let query:MqttClient = db
       .get("Devices")
       .find({ username: username }, { password: password })
       .value();
@@ -81,6 +81,17 @@ class MqttDeviceList {
     if (query == undefined || query.isAuthourized == undefined) {
       return false;
     } else return query.isAuthourized;
+  }
+  public VerifyPubTopic(clientId,topic){
+    let query :MqttClient = db
+      .get("Devices")
+      .find({ DeviceId: clientId })
+      .value();
+
+    console.log(query);
+    if(query.DeviceId==clientId && query.publications.includes(topic)){
+        return true }
+        else {return false}
   }
 }
 export { MqttErrorObj, MqttClient, MqttDeviceList };
