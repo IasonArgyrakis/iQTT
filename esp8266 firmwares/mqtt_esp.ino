@@ -26,8 +26,8 @@
 
 // Update these with values suitable for your network.
 
-const char* ssid = "dja";
-const char* pswd = "+30dja2106832436";
+const char* ssid = "--";
+const char* pswd = "-------";
 const char* mqtt_server = "192.168.1.64";
 const char* topic = "wemos";    // rhis is the [root topic]
 const char* mqtt_id = "json-esp";
