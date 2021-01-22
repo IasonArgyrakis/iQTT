@@ -80,8 +80,8 @@ aedes.authenticate = async function (client, username, password, callback) {
 const express = require('express')
 const app = express()
 const EXport = 3002
-import {MQHTTP}from "./MQTT/MQHTTP"
-var MPI = new MQHTTP
+import {MPI}from "./MQTT/MQHTTP"
+
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
@@ -94,6 +94,15 @@ MPI.issuePublication("cmnd/json-Bedroom/POWER", "2")
 
   res.send('Hello World!')
 })
+app.post('/t', (req, res) => {
+  console.log("TOGGLE");
+  
+  MPI.issueSub("stat/json-Bedroom/POWER");
+  MPI.issueSub("stat/json-Bedroom/RESULT")
+  
+  
+    res.send('Hello World!')
+  })
 
 app.listen(EXport, () => {
   console.log(`EXPample app listening at http://localhost:${EXport}`)

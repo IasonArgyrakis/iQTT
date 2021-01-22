@@ -1,21 +1,33 @@
 import * as mqtt from "mqtt";
 
+var server1 = {
+  url: "mqtt://Home-server:3000",
+  opt: { username: "API+67", password: "042f", clientId: "API",qos: 2 },
+};
 
+class MQHTTP {
+  private broker;
+  private subscriptions:Array<String>
 
+  constructor(options) {
+    this.broker = mqtt.connect(options.url, options.opt);
+    this.broker.on("message", function (topic, message) {
+        // message is Buffer
+        console.log("+++>>>"+topic +": "+message.toString());
+    
+        
+      })
+      
 
-class MQHTTP
-{ 
-    public issuePublication(topic:string,payload:string)
-    { 
-        let  client =  mqtt.connect('mqtt://Home-server:3000',
-{
-  username:"API+67",
-  password:"042f",
-  clientId:"API" });
-         client.on('connect', function () {
-            client.publish(topic, payload,{qos:2});
-            client.end();
-  });
-    }
+  }
+  public issuePublication(topic, payload) {
+    this.broker.publish(topic, payload );
+  }
+  public issueSub(topic) {
+    this.broker.subscribe(topic)
+
+  }
 }
-export { MQHTTP}
+
+var MPI = new MQHTTP(server1);
+export { MPI };
