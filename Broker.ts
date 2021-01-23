@@ -1,22 +1,22 @@
 
 import{MqttErrorObj,MqttClient,MqttDeviceList} from "./MQTT/MqttObj";
-
+import * as fs from "fs";
 
 const aedes = require("aedes")();
-const server = require("net").createServer(aedes.handle);
-const port = 3000;
+//const server = require("net").createServer(aedes.handle);
+const port = 8883;
 
 
-/*
+
 const options = {
-  key: fs.readFileSync('src/keys/server.pem'),
-  cert: fs.readFileSync('src/keys/private2.pub')
-}R
-*/
-/*const server = require('tls').createServer(
-    //options,
+  key: fs.readFileSync('certs/key.pem'),
+  cert: fs.readFileSync('certs/cert.pem')
+}
+
+const server = require('tls').createServer(
+    options,
      aedes.handle)
-*/
+
 server.listen(port, function () {
   console.log("server started and listening on port ", port);
 });

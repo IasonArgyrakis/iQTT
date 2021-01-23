@@ -1,8 +1,9 @@
 import * as mqtt from "mqtt";
+import * as tls from "tls"
 
 var server1 = {
-  url: "mqtt://Home-server:3000",
-  opt: { username: "API+67", password: "042f", clientId: "API",qos: 2 },
+  url: "Home-server:8883",
+  opt: { username: "API+67", password: "042f", clientId: "API",protocol:"ssl"},
 };
 
 class MQHTTP {
@@ -21,6 +22,7 @@ class MQHTTP {
 
   }
   public issuePublication(topic, payload) {
+    console.log("issuePublication");
     this.broker.publish(topic, payload );
   }
   public issueSub(topic) {
