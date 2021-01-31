@@ -51,30 +51,7 @@ aedes.authenticate = async function (client, username, password, callback) {
   }
 
 };
-// this is to stop  unauth publication 
-// aedes.authorizePublish = async function (client, packet, callback) {
-//   if (DeviceList.VerifyPubTopic(client.id,packet.topic)) {
-//     callback(null)
-//   }
 
-// }
-
-
-
-
-
-
-
-// client.on('connect', function () {
-//   client.subscribe('test');
-//   client.publish('test', 'Hello mqtt');
-// })
-
-// client.on('message', function (topic, message) {
-//   // message is Buffer
-//   console.log("------>"+message.toString());
-//   client.end();
-// });
 
 
 const express = require('express')
@@ -86,7 +63,7 @@ import {MPI}from "./MQTT/MQHTTP"
 app.get('/', (req, res) => {
   res.send('Hello World!')
 })
-app.get('/t', (req, res) => {
+app.post('/', (req, res) => {
 console.log("TOGGLE");
 
 MPI.issuePublication("cmnd/json-Bedroom/POWER", "2")
@@ -94,8 +71,8 @@ MPI.issuePublication("cmnd/json-Bedroom/POWER", "2")
 
   res.send('Hello World!')
 })
-app.post('/t', (req, res) => {
-  console.log("TOGGLE");
+app.post('/pub', (req, res) => {
+   req.
   
   MPI.issueSub("stat/json-Bedroom/POWER");
   MPI.issueSub("stat/json-Bedroom/RESULT")

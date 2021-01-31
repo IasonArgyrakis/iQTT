@@ -12,6 +12,8 @@ class MqttErrorObj implements MqttErrorObj {
     public name: string = "Error"
   ) {}
 }
+enum clientType{generic,tasmota}
+
 interface MqttClientCofig {
   readonly DeviceId: string;
   readonly username: string;
@@ -19,7 +21,9 @@ interface MqttClientCofig {
   readonly isAuthourized: boolean;
   subscriptions?: string[];
   publications?: string[];
+  readonly type?: clientType
 }
+
 class MqttClient implements MqttClientCofig {
   readonly DeviceId: string;
   readonly username: string;
@@ -27,11 +31,13 @@ class MqttClient implements MqttClientCofig {
   readonly isAuthourized: boolean = false;
   subscriptions: string[] = [];
   publications: string[] = [];
+  readonly type:clientType
 
   constructor(
     DeviceId: string,
     subscriptions?: string[],
-    publications?: string[]
+    publications?: string[],
+    type?:clientType
   ) {
     this.DeviceId = DeviceId;
     this.username = DeviceId + "+" + randomBytes(1).toString("hex");
@@ -46,6 +52,13 @@ class MqttClient implements MqttClientCofig {
     } else {
       this.publications = publications;
     }
+
+    if (type == undefined) {
+      this.type = 0;
+    } else {
+      this.type = type;
+    }
+
     let MqttDevice = {
       DeviceId: this.DeviceId,
       username: this.username,

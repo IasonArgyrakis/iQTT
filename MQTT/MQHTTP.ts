@@ -32,5 +32,5 @@ class MQHTTP {
   }
 }
 
-var MPI = new MQHTTP(server1);
-export { MPI };
+var MQTT API = new MQHTTP(server1);
+export { MQTT API as MPI };
