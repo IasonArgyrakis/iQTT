@@ -1,6 +1,7 @@
 
 import{MqttErrorObj,MqttClient,MqttDeviceList} from "./MQTT/MqttObj";
 import * as fs from "fs";
+import{HTTPAPI} from "./Broker-API/Api"
 
 const aedes = require("aedes")();
 //const server = require("net").createServer(aedes.handle);
@@ -18,7 +19,9 @@ const server = require('tls').createServer(
      aedes.handle)
 
 server.listen(port, function () {
-  console.log("server started and listening on port ", port);
+  HTTPAPI.start
+  console.log("MQTT BROKER started and listening on port ", port);
+  
 });
 
 const DeviceList =new MqttDeviceList()
@@ -47,42 +50,11 @@ aedes.authenticate = async function (client, username, password, callback) {
     console.log(client)
     let error=new MqttErrorObj("Auth error",4);
     callback(error, null);
-    console.log("Client Denined make sure it is AUTH",client.id);
+    console.log("Client Denined make sure it's AUTH is set to true",client.id);
   }
 
 };
 
 
-
-const express = require('express')
-const app = express()
-const EXport = 3002
-import {MPI}from "./MQTT/MQHTTP"
-
-
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
-app.post('/', (req, res) => {
-console.log("TOGGLE");
-
-MPI.issuePublication("cmnd/json-Bedroom/POWER", "2")
-
-
-  res.send('Hello World!')
-})
-app.post('/pub', (req, res) => {
-   req.
-  
-  MPI.issueSub("stat/json-Bedroom/POWER");
-  MPI.issueSub("stat/json-Bedroom/RESULT")
-  
-  
-    res.send('Hello World!')
-  })
-
-app.listen(EXport, () => {
-  console.log(`EXPample app listening at http://localhost:${EXport}`)
-})
 
                         

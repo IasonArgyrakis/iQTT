@@ -15,22 +15,27 @@ class MQHTTP {
     this.broker.on("message", function (topic, message) {
         // message is Buffer
         console.log("+++>>>"+topic +": "+message.toString());
-        //if(topic==)
+        //if(topic
+
     
         
       })
       
 
   }
-  public issuePublication(topic, payload) {
-    console.log("issuePublication");
+  
+  public publishTo(topic, payload) {
+    console.log("Publising: "+topic+"  Payload: "+payload);
     this.broker.publish(topic, payload );
   }
-  public issueSub(topic) {
+  public subscribeTo(topic) {
+    console.log("MQTT api Subcribed to:"+topic)
     this.broker.subscribe(topic)
 
   }
+  
 }
 
-var MQTT API = new MQHTTP(server1);
-export { MQTT API as MPI };
+var MPI = new MQHTTP(server1);
+
+export { MPI as iQTT};

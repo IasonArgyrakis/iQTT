@@ -92,6 +92,7 @@ class MqttDeviceList {
       .value();
 
     if (query == undefined || query.isAuthourized == undefined) {
+      console.log("Device is know but authorisaion boolean is set to :FALSE")
       return false;
     } else return query.isAuthourized;
   }
