@@ -20,6 +20,10 @@ app.post("/tasmota/:device_id/:cmd",(req, res) => {
   tasmCo.sendCommand(req.params.device_id,req.params.cmd,req.body.payload.toString())
   res.send(200);
 });
+app.get("/tasmota/all",(req, res) => {
+  
+  res.json(tasmCo.getList());
+});
 
 let Enpoint = {
   start: app.listen(EXport, () => {

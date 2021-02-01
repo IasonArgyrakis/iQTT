@@ -6,16 +6,26 @@ var server1 = {
   opt: { username: "API+67", password: "042f", clientId: "API",rejectUnauthorized: false},
 };
 
+let Devicelist=[]
+
 class MQHTTP {
   private broker;
-  private subscriptions:Array<String>
-
+ 
+ 
   constructor(options) {
+    
     this.broker = mqtt.connect(options.url, options.opt);
     this.broker.on("message", function (topic, message) {
         // message is Buffer
         console.log("+++>>>"+topic +": "+message.toString());
         //if(topic
+        let str= topic.split("/")
+      
+        if(!Devicelist.includes(str[1]))
+        {
+          Devicelist.push(str[1])
+        }
+        
 
     
         
@@ -33,6 +43,8 @@ class MQHTTP {
     this.broker.subscribe(topic)
 
   }
+  public getDevices(){return Devicelist}
+ 
   
 }
 

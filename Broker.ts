@@ -50,7 +50,7 @@ aedes.authenticate = async function (client, username, password, callback) {
     console.log(client)
     let error=new MqttErrorObj("Auth error",4);
     callback(error, null);
-    console.log("Client Denined make sure it's AUTH is set to true",client.id);
+    console.log("Client Denined make sure it's AUTH is set to true for :",client.id);
   }
 
 };
