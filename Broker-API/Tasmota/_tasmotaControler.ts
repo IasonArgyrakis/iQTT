@@ -36,6 +36,15 @@ class _tasmotaControler {
    * DetectTasmoMsg
 topic,msg   */
   public DetectTasmoMsg(topic, msg) {
+    function IsJsonString(str) {
+      try {
+        JSON.parse(str);
+      } catch (e) {
+        return false;
+      }
+      return true;
+    }
+
     topic = topic.split("/");
     let rooot = topic[0];
     let device_name = topic[1];
@@ -55,25 +64,32 @@ topic,msg   */
         .get("Tasmota_Devices")
         .find({ device_Name: device_name })
         .value();
-     
+        
       let new_data: TasmoMsg = { property_Name: _property, data: msg };
-      if (old.data.length == 0||old.data.find( ({ property_Name }) => property_Name == _property )==undefined) {
-       
-        old.data.push(new_data);
-     
-      } 
-      else{
-        let update_known:TasmoMsg =old.data.find( ({ property_Name }) => property_Name == _property )
-        update_known.data=msg
-        
-        
-
+      if (IsJsonString(msg)) {
+        new_data = { property_Name: _property, data: JSON.parse(msg) };
       }
+
+      if (
+        old.data.length == 0 ||
+        old.data.find(({ property_Name }) => property_Name == _property) ==
+          undefined
+      ) {
+        old.data.push(new_data);
+      } else {
+        let update_known: TasmoMsg = old.data.find(
+          ({ property_Name }) => property_Name == _property
+        );
+        if (IsJsonString(msg)) {
+          update_known.data = JSON.parse(msg);
+        } else {
+          update_known.data = msg;
+        }
       }
     }
-    //else ignore not tasmota
   }
-
+  //else ignore not tasmota
+}
 
 let _tasmco = new _tasmotaControler();
 export { _tasmco as tasmCo };
