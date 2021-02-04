@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const EXport = 3002;
 import { iQTT } from "../MQTT/MQHTTP";
-import { tasmCo } from "./_tasmotaControler";
+import { tasmCo } from "./Tasmota/_tasmotaControler";
 const bodyParser  = require("body-parser")
 
 let tas
@@ -22,7 +22,7 @@ app.post("/tasmota/:device_id/:cmd",(req, res) => {
 });
 app.get("/tasmota/all",(req, res) => {
   
-  res.json(tasmCo.getList());
+ res.json(tasmCo.getTasmoDevList());
 });
 
 let Enpoint = {

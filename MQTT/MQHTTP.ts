@@ -1,34 +1,29 @@
 import * as mqtt from "mqtt";
 import * as tls from "tls"
+import { tasmCo } from "../Broker-API/Tasmota/_tasmotaControler";
+
 
 var server1 = {
   url: "mqtts://Home-server:8883",
   opt: { username: "API+67", password: "042f", clientId: "API",rejectUnauthorized: false},
 };
 
-let Devicelist=[]
 
 class MQHTTP {
   private broker;
  
- 
+  
   constructor(options) {
     
     this.broker = mqtt.connect(options.url, options.opt);
     this.broker.on("message", function (topic, message) {
         // message is Buffer
-        console.log("+++>>>"+topic +": "+message.toString());
-        //if(topic
-        let str= topic.split("/")
-      
-        if(!Devicelist.includes(str[1]))
-        {
-          Devicelist.push(str[1])
-        }
+        console.log("+++>>>"+topic +" : "+ message.toString());
+        tasmCo.DetectTasmoMsg(topic,message)
         
 
     
-        
+    
       })
       
 
@@ -43,11 +38,13 @@ class MQHTTP {
     this.broker.subscribe(topic)
 
   }
-  public getDevices(){return Devicelist}
+  public getTasmoDevices(){return tasmCo.getTasmoDevList  }
  
   
 }
 
 var MPI = new MQHTTP(server1);
 
+
 export { MPI as iQTT};
+
