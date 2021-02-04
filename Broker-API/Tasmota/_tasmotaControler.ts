@@ -9,7 +9,6 @@ interface TasmoDev {
   device_Name: String;
 
   data?: TasmoMsg[];
-  //stat?: TasmoMsg[];
 }
 interface TasmoMsg {
   property_Name: string;
@@ -32,10 +31,8 @@ class _tasmotaControler {
   public getTasmoDevList() {
     return db.get("Tasmota_Devices");
   }
-  /**
-   * DetectTasmoMsg
-topic,msg   */
-  public DetectTasmoMsg(topic, msg) {
+
+  public DetectTasmoDevices(topic, msg) {
     function IsJsonString(str) {
       try {
         JSON.parse(str);

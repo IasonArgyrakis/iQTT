@@ -19,7 +19,8 @@ class MQHTTP {
     this.broker.on("message", function (topic, message) {
         // message is Buffer
         console.log("+++>>>"+topic +" : "+ message.toString());
-        tasmCo.DetectTasmoMsg(topic,message)
+      
+        tasmCo.DetectTasmoDevices(topic,message)
         
 
     
