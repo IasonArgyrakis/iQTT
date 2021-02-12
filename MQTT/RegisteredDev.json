@@ -50,17 +50,18 @@
       "isAuthourized": true,
       "subscriptions": [],
       "publications": [],
-      "DeviceId": "API",
-      "username": "API+67",
-      "password": "042f"
+      "DeviceId": "no_heatsink",
+      "username": "no_heatsink+88",
+      "password": "f0df",
+      "type": 0
     },
     {
       "isAuthourized": true,
       "subscriptions": [],
       "publications": [],
-      "DeviceId": "DVES_5EC47A",
-      "username": "DVES_5EC47A+54",
-      "password": "4de5",
+      "DeviceId": "API",
+      "username": "API+24",
+      "password": "13a2",
       "type": 0
     }
   ]

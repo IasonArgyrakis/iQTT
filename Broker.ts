@@ -27,30 +27,31 @@ server.listen(port, function () {
 const DeviceList =new MqttDeviceList()
 aedes.authenticate = async function (client, username, password, callback) {
   
-   if(DeviceList.VerifyAuth(username,password)){
+   if( DeviceList.VerifyAuth(username,password)){
  
 
     console.log("Pre Known Client",client.id,"Connected");
     callback(null, true)
    }
-  else if (username == "Register" && password == "Register") {
+  else if (username == "Register" && password == "Register")
+   {
     //Notify i got a new Record
     console.log("New Client",client.id,"Recored");
     //generate a new Client Record
-    let Client=new MqttClient(client.id);
-    DeviceList.addNewClientRecord(Client);
+    var Client=new MqttClient(client.id);
+     DeviceList.addNewClientRecord(Client);
 
     //Deny Client (Must use Generated Creds)
     callback(new MqttErrorObj("Auth error",4) , null);
-    console.log("Client Ejected",client.id);
+    console.log("Client Ejected",Client.DeviceId);
     
     
   } 
   else {
-    console.log(client)
+    //console.log(client)
     let error=new MqttErrorObj("Auth error",4);
     callback(error, null);
-    console.log("Client Denined make sure it's AUTH is set to true for :",client.id);
+    console.log("Client Denined make sure it's AUTH is set to true for :",client.Id);
   }
 
 };

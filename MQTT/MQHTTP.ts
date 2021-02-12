@@ -1,16 +1,20 @@
 import * as mqtt from "mqtt";
+import { IClientOptions, IClientPublishOptions } from "mqtt";
 import * as tls from "tls"
 import { tasmCo } from "../Broker-API/Tasmota/_tasmotaControler";
+import { MqttClient } from "mqtt";
+ 
 
+
+var option:IClientOptions={ username: "API+24", password: "13a2", clientId: "API",rejectUnauthorized: false}
 
 var server1 = {
   url: "mqtts://Home-server:8883",
-  opt: { username: "API+67", password: "042f", clientId: "API",rejectUnauthorized: false},
+  opt:option
 };
 
-
 class MQHTTP {
-  private broker;
+  private broker:MqttClient;
  
   
   constructor(options) {
@@ -30,9 +34,10 @@ class MQHTTP {
 
   }
   
-  public publishTo(topic, payload) {
-    console.log("Publising: "+topic+"  Payload: "+payload);
-    this.broker.publish(topic, payload );
+  public publishTo(topic, payload,qos?:mqtt.QoS) {
+    let opt:IClientPublishOptions={"qos":qos}
+    console.log("Publising:->"+topic+"<   |Payload:>"+payload+"<  |qos>"+qos );
+    this.broker.publish(topic, payload,opt,(erro)=>{console.log(erro)});
   }
   public subscribeTo(topic) {
     console.log("MQTT api Subcribed to:"+topic)

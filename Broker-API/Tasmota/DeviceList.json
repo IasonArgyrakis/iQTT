@@ -1,40 +1,20 @@
 {
   "Tasmota_Devices": [
     {
-      "device_Name": "testing",
+      "device_Name": "no_heatsink",
       "data": [
         {
           "property_Name": "LWT",
           "data": "Online"
-        },
-        {
-          "property_Name": "INFO1",
-          "data": "{\"Module\":\"Sonoff Basic\",\"Version\":\"9.2.0(tasmota)\",\"FallbackTopic\":\"cmnd/DVES_5EC47A_fb/\",\"GroupTopic\":\"cmnd/tasmotas/\"}"
-        },
-        {
-          "property_Name": "INFO2",
-          "data": "{\"WebServerMode\":\"Admin\",\"Hostname\":\"testing-1146\",\"IPAddress\":\"192.168.1.24\"}"
-        },
-        {
-          "property_Name": "INFO3",
-          "data": "{\"RestartReason\":\"External System\"}"
-        },
-        {
-          "property_Name": "RESULT",
-          "data": "{\"POWER\":\"ON\"}"
-        },
-        {
-          "property_Name": "POWER",
-          "data": "ON"
-        },
-        {
-          "property_Name": "STATE",
-          "data": "{\"Time\":\"2021-02-04T19:59:54\",\"Uptime\":\"0T00:00:09\",\"UptimeSec\":9,\"Heap\":24,\"SleepMode\":\"Dynamic\",\"Sleep\":50,\"LoadAvg\":19,\"MqttCount\":1,\"POWER\":\"ON\",\"Wifi\":{\"AP\":1,\"SSId\":\"dja\",\"BSSId\":\"00:1D:1C:F5:C8:68\",\"Channel\":4,\"RSSI\":82,\"Signal\":-59,\"LinkCount\":1,\"Downtime\":\"0T00:00:03\"}}"
         }
       ]
     },
     {
       "device_Name": "json-Bedroom",
+      "data": []
+    },
+    {
+      "device_Name": "testing",
       "data": []
     }
   ]

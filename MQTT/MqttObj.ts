@@ -73,9 +73,9 @@ const adapter = new FileSync("./MQTT/RegisteredDev.json");
 const db = low(adapter);
 
 class MqttDeviceList {
-  public addNewClientRecord(client: MqttClient) {
+  public async addNewClientRecord(client: MqttClient) {
     if (
-      db.get("Devices").find({ DeviceId: client.DeviceId }).value() == undefined
+      await db.get("Devices").find({ DeviceId: client.DeviceId }).value() == undefined
     ) {
       console.log("New Device Recorded");
       db.get("Devices").push(client).write();
@@ -85,17 +85,21 @@ class MqttDeviceList {
       );
     }
   }
-  public VerifyAuth(username, password) {
-    let query:MqttClient = db
+  
+  public async VerifyAuth(username, password) {
+    let query:MqttClient =  await db
       .get("Devices")
-      .find({ username: username }, { password: password })
+      .find({ "username": username ,"password": password })
       .value();
 
+    
     if (query == undefined || query.isAuthourized == undefined) {
-      console.log("Device is know but authorisaion boolean is set to :FALSE")
+      console.log(query)
       return false;
-    } else return query.isAuthourized;
+    } else {return query.isAuthourized;}
   }
+
+  
   public VerifyPubTopic(clientId,topic){
     let query :MqttClient = db
       .get("Devices")
