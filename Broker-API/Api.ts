@@ -7,7 +7,7 @@ const bodyParser  = require("body-parser")
 
 let tas
 app.get("/", (req, res) => {
-  res.send("Hello World!");
+  res.send("Hello World!"); 
 });
 app.get("/t", (req, res) => {
   iQTT.publishTo("cmnd/json-Bedroom/POWER", "2",2);
@@ -20,7 +20,7 @@ app.get("/arm", (req, res) => {
   res.send("Hello World!");
 });
 app.get("/armq", (req, res) => {
-  iQTT.publishTo("testo", "2",1);
+  iQTT.publishTo("testo", "2",2);
 
   res.send("Hello World!");
 });

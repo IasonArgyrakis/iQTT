@@ -24,7 +24,7 @@ interface MqttClientCofig {
   readonly type?: clientType
 }
 
-class MqttClient implements MqttClientCofig {
+class MQTTClient implements MqttClientCofig {
   readonly DeviceId: string;
   readonly username: string;
   readonly password: string;
@@ -73,9 +73,9 @@ const adapter = new FileSync("./MQTT/RegisteredDev.json");
 const db = low(adapter);
 
 class MqttDeviceList {
-  public async addNewClientRecord(client: MqttClient) {
+  public  addNewClientRecord(client: MQTTClient) {
     if (
-      await db.get("Devices").find({ DeviceId: client.DeviceId }).value() == undefined
+       db.get("Devices").find({ DeviceId: client.DeviceId }).value()==undefined
     ) {
       console.log("New Device Recorded");
       db.get("Devices").push(client).write();
@@ -86,8 +86,10 @@ class MqttDeviceList {
     }
   }
   
-  public async VerifyAuth(username, password) {
-    let query:MqttClient =  await db
+  public  VerifyAuth(username, password) {
+    if(Buffer.isBuffer(password)){
+    password=password.toString()}
+    let query:MQTTClient =   db
       .get("Devices")
       .find({ "username": username ,"password": password })
       .value();
@@ -101,7 +103,7 @@ class MqttDeviceList {
 
   
   public VerifyPubTopic(clientId,topic){
-    let query :MqttClient = db
+    let query :MQTTClient = db
       .get("Devices")
       .find({ DeviceId: clientId })
       .value();
@@ -112,4 +114,4 @@ class MqttDeviceList {
         else {return false}
   }
 }
-export { MqttErrorObj, MqttClient, MqttDeviceList };
+export { MqttErrorObj, MQTTClient , MqttDeviceList };

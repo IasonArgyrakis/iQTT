@@ -6,7 +6,7 @@ import { MqttClient } from "mqtt";
  
 
 
-var option:IClientOptions={ username: "API+24", password: "13a2", clientId: "API",rejectUnauthorized: false}
+var option:IClientOptions={ username: "API+85", password: "8374", clientId: "API",rejectUnauthorized: false}
 
 var server1 = {
   url: "mqtts://Home-server:8883",

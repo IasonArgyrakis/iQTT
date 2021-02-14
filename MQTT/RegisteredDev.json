@@ -2,66 +2,38 @@
   "Devices": [
     {
       "isAuthourized": true,
-      "subscriptions": [
-        "cmnd/json-Bedroom/POWER"
-      ],
-      "publications": [],
-      "DeviceId": "json Bedroom",
-      "username": "json Bedroom+73",
-      "password": "8468"
-    },
-    {
-      "isAuthourized": true,
-      "subscriptions": [
-        "*"
-      ],
-      "publications": [
-        "*"
-      ],
-      "DeviceId": "mqtt-explorer-1f3eedcd",
-      "username": "mqtt-explorer-1f3eedcd+fd",
-      "password": "3d72"
-    },
-    {
-      "isAuthourized": true,
       "subscriptions": [],
       "publications": [],
-      "DeviceId": "root.1605876242083",
-      "username": "root.1605876242083+78",
-      "password": "8f7f"
-    },
-    {
-      "isAuthourized": true,
-      "subscriptions": [],
-      "publications": [],
-      "DeviceId": "json-esp",
-      "username": "json-esp+e3",
-      "password": "805f"
-    },
-    {
-      "isAuthourized": true,
-      "subscriptions": [],
-      "publications": [],
-      "DeviceId": "mqtt-explorer-007fb2e4",
-      "username": "mqtt-explorer-007fb2e4+2d",
-      "password": "a10b"
-    },
-    {
-      "isAuthourized": true,
-      "subscriptions": [],
-      "publications": [],
-      "DeviceId": "no_heatsink",
-      "username": "no_heatsink+88",
-      "password": "f0df",
+      "DeviceId": "API",
+      "username": "API+85",
+      "password": "8374",
       "type": 0
     },
     {
       "isAuthourized": true,
       "subscriptions": [],
       "publications": [],
-      "DeviceId": "API",
-      "username": "API+24",
-      "password": "13a2",
+      "DeviceId": "mqtt-explorer-007fb2e4",
+      "username": "mqtt-explorer-007fb2e4+99",
+      "password": "3a78",
+      "type": 0
+    },
+    {
+      "isAuthourized": true, 
+      "subscriptions": [],
+      "publications": [],
+      "DeviceId": "json_Bedroom",
+      "username": "json_Bedroom+51",
+      "password": "6744",
+      "type": 0
+    },
+    {
+      "isAuthourized": true,
+      "subscriptions": [],
+      "publications": [],
+      "DeviceId": "testing2",
+      "username": "testing2+3b",
+      "password": "e6bb",
       "type": 0
     }
   ]
