@@ -19,7 +19,7 @@
       "type": 0
     },
     {
-      "isAuthourized": true, 
+      "isAuthourized": true,
       "subscriptions": [],
       "publications": [],
       "DeviceId": "json_Bedroom",
@@ -34,6 +34,33 @@
       "DeviceId": "testing2",
       "username": "testing2+3b",
       "password": "e6bb",
+      "type": 0
+    },
+    {
+      "isAuthourized": false,
+      "subscriptions": [],
+      "publications": [],
+      "DeviceId": "Alarm",
+      "username": "Alarm+9b",
+      "password": "786a",
+      "type": 0
+    },
+    {
+      "isAuthourized": false,
+      "subscriptions": [],
+      "publications": [],
+      "DeviceId": "Garage",
+      "username": "Garage+30",
+      "password": "aa75",
+      "type": 0
+    },
+    {
+      "isAuthourized": true,
+      "subscriptions": [],
+      "publications": [],
+      "DeviceId": "Garage2",
+      "username": "Garage2+8b",
+      "password": "6339",
       "type": 0
     }
   ]

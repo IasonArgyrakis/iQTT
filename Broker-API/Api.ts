@@ -24,6 +24,11 @@ app.get("/armq", (req, res) => {
 
   res.send("Hello World!");
 });
+app.get("/garage/:cmd", (req, res) => {
+  iQTT.publishTo("Garage_Commands",req.params.cmd,2);
+
+  res.send("Hello World!");
+});
 app.use(bodyParser.json())
 app.post("/tasmota/:device_id/:cmd",(req, res) => {
   
