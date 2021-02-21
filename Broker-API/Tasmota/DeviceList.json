@@ -1,20 +1,7 @@
 {
   "Tasmota_Devices": [
     {
-      "device_Name": "no_heatsink",
-      "data": [
-        {
-          "property_Name": "LWT",
-          "data": "Online"
-        }
-      ]
-    },
-    {
       "device_Name": "json-Bedroom",
-      "data": []
-    },
-    {
-      "device_Name": "testing",
       "data": []
     }
   ]

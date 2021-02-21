@@ -1,3 +1,4 @@
+import * as  cookieParser from 'cookie-parser';
 const express = require("express");
 const app = express();
 const EXport = 4300;
@@ -30,6 +31,7 @@ app.get("/garage/:cmd", (req, res) => {
   res.send("Hello World!");
 });
 app.use(bodyParser.json())
+//app.use(cookieParser)
 app.post("/tasmota/:device_id/:cmd",(req, res) => {
   
   tasmCo.sendCommand(req.params.device_id,req.params.cmd,req.body.payload.toString())
