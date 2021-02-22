@@ -2,7 +2,17 @@ let cookie = require('cookie');
 let cookieParser = require("cookie-parser");
 let express = require("express");
 let app = express();
+const https = require('https');
+const fs = require('fs');
 let EXport = 4300;
+var key = fs.readFileSync(__dirname +"/cert/selfsigned.key", 'utf8');
+var cert = fs.readFileSync(__dirname +"/cert/selfsigned.crt", 'utf8');
+var options = {
+  key: key,
+  cert: cert
+};
+
+var SecureServer = https.createServer(options, app);
 import { iQTT } from "../MQTT/MQHTTP";
 import { tasmCo } from "./Tasmota/_tasmotaControler";
 
@@ -22,27 +32,29 @@ app.post("/login", function (req, res){
    if(creds.username=="j"&&creds.password=="son")
    {
     res.cookie('Jas', '1', { expires: new Date(Date.now() + 90000), httpOnly: true,signed:true });
-    res.redirect('/auth')
+   
    }
    else { res.send(400,"no")}
+   res.redirect('/auth')
    
    
 });
 
-function authenticateToken(req, res, next) {
+function  authenticateToken(req, res, next) {
   //neeed to hande the reqest and next() or not 
-  if(req.signedCookies.Jas)
+  
+  if(req.signedCookies.Jas==1)
   {
-    console.log("if")
+    console.log("Authenticated Cookie")
     next()
-  }else {console.log("if2");res.redirect("/login")}
+  }else {console.log("Invalid Token attempt");res.redirect(500,"/login")}
 
 };
 
 
 app.get("/auth", [authenticateToken],function (req, res,next){
   //req.body
-  console.log(req.signedCookies);
+  console.log(req.signedCookies.Jas);
   interface creds{username:string,password:string}
   let creds:creds ={username:req.body.username,password:req.body.password}
   
@@ -50,7 +62,7 @@ app.get("/auth", [authenticateToken],function (req, res,next){
   
 });
 
-app.get("/t", (req, res) => {
+app.get("/t",[authenticateToken], (req, res) => {
   iQTT.publishTo("cmnd/json-Bedroom/POWER", "2",2);
 
   res.send("Hello World!");
@@ -65,7 +77,7 @@ app.get("/armq", (req, res) => {
 
   res.send("Hello World!");
 });
-app.get("/garage/:cmd", (req, res) => {
+app.get("/garage/:cmd",[authenticateToken], (req, res) => {
   iQTT.publishTo("Garage_Commands",req.params.cmd,2);
 
   res.send("Hello World!");
@@ -84,7 +96,7 @@ app.get("/tasmota/all",(req, res) => {
 });
 
 let Enpoint = {
-  start: app.listen(EXport, () => {
+  start: SecureServer.listen(EXport, () => {
     console.log(`API listening at http://localhost:${EXport}`);
     iQTT.subscribeTo("#"); //listen to all topics
   }),
