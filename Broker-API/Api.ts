@@ -24,11 +24,12 @@ app.post("/login", function (req, res){
     res.cookie('Jas', '1', { expires: new Date(Date.now() + 90000), httpOnly: true,signed:true });
     res.redirect('/auth')
    }
+   else { res.send(400,"no")}
    
    
 });
 
-app.use(function authenticateToken(req, res, next) {
+function authenticateToken(req, res, next) {
   //neeed to hande the reqest and next() or not 
   if(req.signedCookies.Jas)
   {
@@ -36,10 +37,10 @@ app.use(function authenticateToken(req, res, next) {
     next()
   }else {console.log("if2");res.redirect("/login")}
 
-});
+};
 
 
-app.get("/auth", function (req, res){
+app.get("/auth", [authenticateToken],function (req, res,next){
   //req.body
   console.log(req.signedCookies);
   interface creds{username:string,password:string}
