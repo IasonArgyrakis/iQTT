@@ -1,8 +1,10 @@
+import { format } from 'path';
 import * as mqtt from "mqtt";
 import { IClientOptions, IClientPublishOptions } from "mqtt";
 import * as tls from "tls"
 import { tasmCo } from "../Broker-API/Tasmota/_tasmotaControler";
 import { MqttClient } from "mqtt";
+import {garageco} from "../Broker-API/garage_controlr/garage"
  
 
 
@@ -24,7 +26,9 @@ class MQHTTP {
         // message is Buffer
         console.log("+++>>>"+topic +" : "+ message.toString());
       
-        tasmCo.DetectTasmoDevices(topic,message)
+        tasmCo.DetectTasmoDevices(topic,message);
+        garageco.DetectGarage(topic,message);
+
         
 
     
