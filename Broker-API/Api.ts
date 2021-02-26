@@ -17,7 +17,6 @@ var options = {
       
 
 var SecureServer = https.createServer(options, app);
-import { format } from "path";
 import { iQTT } from "../MQTT/MQHTTP";
 import { tasmCo } from "./Tasmota/_tasmotaControler";
 import { telegrmClientAPI as telegrmClient } from "./telegram/telegram"
@@ -44,51 +43,51 @@ app.get("/login/:username/:password", function (req, res,next) {
   
   //user autrherication
   if (creds.username == "j" && creds.password == "son") {
-    res.cookie("User", "0", {
+    res.cookie("User", "Json", {
       expires: new Date(Date.now() + 900000),
       httpOnly: true,
       signed: true,
     });
-    telegrmClient.sendMessage(973093704,"json cookie" ); 
+    //telegrmClient.sendMessage(973093704,"json cookie" ); 
     
     res.status(200);
     res.send("🍪");
   } else if (creds.username == "d" && creds.password == "ja") {
-    res.cookie("User", "1", {
+    res.cookie("User", "DJA", {
       expires: new Date(Date.now() + 900000),
       httpOnly: true,
       signed: true,
     });
     res.status(200);
     res.send("🍪");
-    telegrmClient.sendMessage(973093704,"dja cookie" ); 
+    //telegrmClient.sendMessage(973093704,"dja cookie" ); 
   }else if (creds.username == "y" && creds.password == "da") {
-    res.cookie("User", "2", {
+    res.cookie("User", "Yannis", {
       expires: new Date(Date.now() + 900000),
       httpOnly: true,
       signed: true,
     });
     res.status(200);
     res.send("🍪")
-    telegrmClient.sendMessage(973093704,"yda cookie" ); 
+    //telegrmClient.sendMessage(973093704,"yda cookie" ); 
     
   } 
     res.status(400);res.send("no cookie");
-    telegrmClient.sendMessage(973093704,"failed cookie" ); 
+    //telegrmClient.sendMessage(973093704,"failed cookie" ); 
   
 });
 
 function authenticateToken(req, res, next) {
   //neeed to hande the reqest and next() or not
-
-  if (req.signedCookies.User < 3) {
+let users=["Yannis","DJA","Json"]
+  if (users.includes(req.signedCookies.User)) {
     console.log("Authenticated Cookie");
     telegrmClient.sendMessage(973093704,"Authenticated Cookie:"+req.signedCookies.User ); 
     next();
   } else {
     console.log("Invalid Token attempt");
     telegrmClient.sendMessage(973093704,"Invalid Token attempt" ); 
-    res.redirect(500, "/login");
+    res.redirect( "/login");
   }
 }
 

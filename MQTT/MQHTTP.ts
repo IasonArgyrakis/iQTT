@@ -1,4 +1,3 @@
-import { format } from 'path';
 import * as mqtt from "mqtt";
 import { IClientOptions, IClientPublishOptions } from "mqtt";
 import * as tls from "tls"

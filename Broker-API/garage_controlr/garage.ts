@@ -27,8 +27,11 @@ class garageControler {
       console.log(IsJsonString(msg))
       if(topic.toString()=="Telemetry/Door")
       {
-         if(msg.IsClosed){telegrmClient.sendMessage(973093704,"Garage Door: Closed " ); }else{telegrmClient.sendMessage(973093704,"Garage Door: **Open**" ); }}
-      
+         if(msg=="{ IsClosed :true}"){telegrmClient.sendMessage(973093704,"Garage Door: Closed " ); }else if(msg=="{ IsClosed :false}"){telegrmClient.sendMessage(973093704,"Garage Door: **Open** " ); }
+      }
+      else if(topic.toString()=="Telemetry/Garage/isClosed")
+      {if(msg=="{ IsClosed :true}"){telegrmClient.sendMessage(973093704,"Garage Door: Closed " ); }else if(msg=="{ IsClosed :false}"){telegrmClient.sendMessage(973093704,"Garage Door: **Open** " ); }
+    }
   
     }
     //else ignore not tasmota
