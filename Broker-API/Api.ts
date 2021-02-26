@@ -123,7 +123,6 @@ app.get("/armq", (req, res) => {
 });
 app.get("/garage/:cmd",[authenticateToken], (req, res) => {
   iQTT.publishTo("Garage_Commands", req.params.cmd, 2);
-  telegrmClient.sendMessage(973093704,"Garage: "+req.params.cmd ); 
   res.send("Hello World!");
 });
 app.use(bodyParser.json());
