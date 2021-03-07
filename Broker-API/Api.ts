@@ -12,14 +12,10 @@ var options = {
   cert: cert,
 };
 
-
-
-      
-
 var SecureServer = https.createServer(options, app);
 import { iQTT } from "../MQTT/MQHTTP";
 import { tasmCo } from "./Tasmota/_tasmotaControler";
-import { telegrmClientAPI as telegrmClient } from "./telegram/telegram"
+import { telegrmClientAPI as telegrmClient } from "./telegram/telegram";
 
 const bodyParser = require("body-parser");
 
@@ -28,7 +24,7 @@ app.get("/", (req, res) => {
 });
 app.use(express.json());
 app.use(cookieParser("secrter"));
-app.get("/login/:username/:password", function (req, res,next) {
+app.get("/login/:username/:password", function (req, res, next) {
   //req.body
   interface creds {
     username: string;
@@ -39,8 +35,7 @@ app.get("/login/:username/:password", function (req, res,next) {
     //username: req.body.username,
     password: req.params.password,
   };
- 
-  
+
   //user autrherication
   if (creds.username == "j" && creds.password == "son") {
     res.cookie("User", "Json", {
@@ -48,8 +43,8 @@ app.get("/login/:username/:password", function (req, res,next) {
       httpOnly: true,
       signed: true,
     });
-    //telegrmClient.sendMessage(973093704,"json cookie" ); 
-    
+    //telegrmClient.sendMessage(973093704,"json cookie" );
+
     res.status(200);
     res.send("🍪");
   } else if (creds.username == "d" && creds.password == "ja") {
@@ -60,34 +55,36 @@ app.get("/login/:username/:password", function (req, res,next) {
     });
     res.status(200);
     res.send("🍪");
-    //telegrmClient.sendMessage(973093704,"dja cookie" ); 
-  }else if (creds.username == "y" && creds.password == "da") {
+    //telegrmClient.sendMessage(973093704,"dja cookie" );
+  } else if (creds.username == "y" && creds.password == "da") {
     res.cookie("User", "Yannis", {
       expires: new Date(Date.now() + 900000),
       httpOnly: true,
       signed: true,
     });
     res.status(200);
-    res.send("🍪")
-    //telegrmClient.sendMessage(973093704,"yda cookie" ); 
-    
-  } 
-    res.status(400);res.send("no cookie");
-    //telegrmClient.sendMessage(973093704,"failed cookie" ); 
-  
+    res.send("🍪");
+    //telegrmClient.sendMessage(973093704,"yda cookie" );
+  }
+  res.status(400);
+  res.send("no cookie");
+  //telegrmClient.sendMessage(973093704,"failed cookie" );
 });
 
 function authenticateToken(req, res, next) {
   //neeed to hande the reqest and next() or not
-let users=["Yannis","DJA","Json"]
+  let users = ["Yannis", "DJA", "Json"];
   if (users.includes(req.signedCookies.User)) {
     console.log("Authenticated Cookie");
-    telegrmClient.sendMessage(973093704,"Authenticated Cookie:"+req.signedCookies.User ); 
+    telegrmClient.sendMessage(
+      973093704,
+      "Authenticated Cookie:" + req.signedCookies.User
+    );
     next();
   } else {
     console.log("Invalid Token attempt");
-    telegrmClient.sendMessage(973093704,"Invalid Token attempt" ); 
-    res.redirect( "/login");
+    telegrmClient.sendMessage(973093704, "Invalid Token attempt");
+    res.redirect("/login");
   }
 }
 
@@ -121,7 +118,7 @@ app.get("/armq", (req, res) => {
 
   res.send("Hello World!");
 });
-app.get("/garage/:cmd",[authenticateToken], (req, res) => {
+app.get("/garage/:cmd", [authenticateToken], (req, res) => {
   iQTT.publishTo("Garage_Commands", req.params.cmd, 2);
   res.send("Hello World!");
 });
