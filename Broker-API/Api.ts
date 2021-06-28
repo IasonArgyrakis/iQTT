@@ -3,16 +3,18 @@ let cookieParser = require("cookie-parser");
 let express = require("express");
 let app = express();
 const https = require("https");
+
 const fs = require("fs");
-let EXport = 4300;
-var key = fs.readFileSync(__dirname + "/cert/selfsigned.key", "utf8");
-var cert = fs.readFileSync(__dirname + "/cert/selfsigned.crt", "utf8");
+let EXport = 4443;
+var key = fs.readFileSync(__dirname + "/cert/key.pem", "utf8");
+var cert = fs.readFileSync(__dirname + "/cert/cert.pem", "utf8");
 var options = {
   key: key,
   cert: cert,
 };
 
 var SecureServer = https.createServer(options, app);
+var UNSecureServer = express.listen()
 import { iQTT } from "../MQTT/MQHTTP";
 import { tasmCo } from "./Tasmota/_tasmotaControler";
 import { telegrmClientAPI as telegrmClient } from "./telegram/telegram";
@@ -137,9 +139,14 @@ app.get("/tasmota/all", (req, res) => {
 });
 
 let Enpoint = {
-  start: SecureServer.listen(EXport, () => {
+  startSecure: SecureServer.listen(EXport, () => {
     console.log(`API listening at http://localhost:${EXport}`);
     iQTT.subscribeTo("#"); //listen to all topics
   }),
+  startUnSecure: SecureServer.listen(EXport, () => {
+    console.log(`API listening at http://localhost:${EXport}`);
+    iQTT.subscribeTo("#"); //listen to all topics
+  })
 };
 export { Enpoint as HTTPAPI };
+export { app as appostolos }

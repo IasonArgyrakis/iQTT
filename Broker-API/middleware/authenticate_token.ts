@@ -11,7 +11,7 @@ function authenticateToken(req, res, next) {
 }
 
 function generateToken(req, res, next) {
-  let cookie_Conf={maxAge:86400,Secure:true}
+  let cookie_Conf={maxAge:864000,Secure:true}
 
   res.cookie('Tolken',"",cookie_Conf)
   next()

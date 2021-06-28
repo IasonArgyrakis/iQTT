@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-Broker-API/cert/selfsigned.crt
-Broker-API/cert/selfsigned.key
-=======
 Broker-API/cert/selfsigned.key
 Broker-API/cert/selfsigned.crt
->>>>>>> main
+**/key.pem
+**/cert.pem

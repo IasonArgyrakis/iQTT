@@ -14,6 +14,8 @@ node --inspect=5858 -r ts-node/register ./BROKER.ts
 
 Documentation will be made when i have something more final
 
+sudo node --inspect=5858 -r ts-node/register ./Broker.ts
+
 
 ## Credits
 https://www.npmjs.com/package/aedes
