@@ -21,7 +21,8 @@ const server = require('tls').createServer(
      aedes.handle)
 
 server.listen(port, function () {
-  HTTPAPI.start
+  HTTPAPI.startSecure;
+  HTTPAPI.startUnSecure;
   console.log("MQTT BROKER started and listening on port ", port);
   
 });
