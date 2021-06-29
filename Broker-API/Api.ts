@@ -1,92 +1,152 @@
-let cookie = require('cookie');
+let cookie = require("cookie");
 let cookieParser = require("cookie-parser");
 let express = require("express");
 let app = express();
-let EXport = 4300;
+const https = require("https");
+
+const fs = require("fs");
+let EXport = 4443;
+var key = fs.readFileSync(__dirname + "/cert/key.pem", "utf8");
+var cert = fs.readFileSync(__dirname + "/cert/cert.pem", "utf8");
+var options = {
+  key: key,
+  cert: cert,
+};
+
+var SecureServer = https.createServer(options, app);
+var UNSecureServer = express.listen()
 import { iQTT } from "../MQTT/MQHTTP";
 import { tasmCo } from "./Tasmota/_tasmotaControler";
+import { telegrmClientAPI as telegrmClient } from "./telegram/telegram";
 
-const bodyParser  = require("body-parser")
-
+const bodyParser = require("body-parser");
 
 app.get("/", (req, res) => {
-  res.send("Hello World!"); 
+  res.send("Hello World!");
 });
-app.use(express.json())
+app.use(express.json());
 app.use(cookieParser("secrter"));
-app.post("/login", function (req, res){
-   //req.body
-   interface creds{username:string,password:string}
-   let creds:creds ={username:req.body.username,password:req.body.password}
-   //user autrherication
-   if(creds.username=="j"&&creds.password=="son")
-   {
-    res.cookie('Jas', '1', { expires: new Date(Date.now() + 90000), httpOnly: true,signed:true });
-    res.redirect('/auth')
-   }
-   else { res.send(400,"no")}
-   
-   
+app.get("/login/:username/:password", function (req, res, next) {
+  //req.body
+  interface creds {
+    username: string;
+    password: string;
+  }
+  let creds: creds = {
+    username: req.params.username,
+    //username: req.body.username,
+    password: req.params.password,
+  };
+
+  //user autrherication
+  if (creds.username == "j" && creds.password == "son") {
+    res.cookie("User", "Json", {
+      expires: new Date(Date.now() + 900000),
+      httpOnly: true,
+      signed: true,
+    });
+    //telegrmClient.sendMessage(973093704,"json cookie" );
+
+    res.status(200);
+    res.send("🍪");
+  } else if (creds.username == "d" && creds.password == "ja") {
+    res.cookie("User", "DJA", {
+      expires: new Date(Date.now() + 900000),
+      httpOnly: true,
+      signed: true,
+    });
+    res.status(200);
+    res.send("🍪");
+    //telegrmClient.sendMessage(973093704,"dja cookie" );
+  } else if (creds.username == "y" && creds.password == "da") {
+    res.cookie("User", "Yannis", {
+      expires: new Date(Date.now() + 900000),
+      httpOnly: true,
+      signed: true,
+    });
+    res.status(200);
+    res.send("🍪");
+    //telegrmClient.sendMessage(973093704,"yda cookie" );
+  }
+  res.status(400);
+  res.send("no cookie");
+  //telegrmClient.sendMessage(973093704,"failed cookie" );
 });
 
 function authenticateToken(req, res, next) {
-  //neeed to hande the reqest and next() or not 
-  if(req.signedCookies.Jas)
-  {
-    console.log("if")
-    next()
-  }else {console.log("if2");res.redirect("/login")}
+  //neeed to hande the reqest and next() or not
+  let users = ["Yannis", "DJA", "Json"];
+  if (users.includes(req.signedCookies.User)) {
+    console.log("Authenticated Cookie");
+    telegrmClient.sendMessage(
+      973093704,
+      "Authenticated Cookie:" + req.signedCookies.User
+    );
+    next();
+  } else {
+    console.log("Invalid Token attempt");
+    telegrmClient.sendMessage(973093704, "Invalid Token attempt");
+    res.redirect("/login");
+  }
+}
 
-};
-
-
-app.get("/auth", [authenticateToken],function (req, res,next){
+app.get("/auth", [authenticateToken], function (req, res, next) {
   //req.body
-  console.log(req.signedCookies);
-  interface creds{username:string,password:string}
-  let creds:creds ={username:req.body.username,password:req.body.password}
-  
-  res.send({"ok":"ok"})
-  
+  console.log(req.signedCookies.User);
+  interface creds {
+    username: string;
+    password: string;
+  }
+  let creds: creds = {
+    username: req.body.username,
+    password: req.body.password,
+  };
+
+  res.send({ ok: "ok" });
 });
 
-app.get("/t", (req, res) => {
-  iQTT.publishTo("cmnd/json-Bedroom/POWER", "2",2);
+app.get("/t", [authenticateToken], (req, res) => {
+  iQTT.publishTo("cmnd/json-Bedroom/POWER", "2", 2);
 
   res.send("Hello World!");
 });
 app.get("/arm", (req, res) => {
-  iQTT.publishTo("testo", "1",1);
+  iQTT.publishTo("testo", "1", 1);
 
   res.send("Hello World!");
 });
 app.get("/armq", (req, res) => {
-  iQTT.publishTo("testo", "2",2);
+  iQTT.publishTo("testo", "2", 2);
 
   res.send("Hello World!");
 });
-app.get("/garage/:cmd", (req, res) => {
-  iQTT.publishTo("Garage_Commands",req.params.cmd,2);
-
+app.get("/garage/:cmd", [authenticateToken], (req, res) => {
+  iQTT.publishTo("Garage_Commands", req.params.cmd, 2);
   res.send("Hello World!");
 });
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 //app.use(cookieParser)
-app.post("/tasmota/:device_id/:cmd",(req, res) => {
-  
-  tasmCo.sendCommand(req.params.device_id,req.params.cmd,req.body.payload.toString())
+app.post("/tasmota/:device_id/:cmd", (req, res) => {
+  tasmCo.sendCommand(
+    req.params.device_id,
+    req.params.cmd,
+    req.body.payload.toString()
+  );
   res.sendStatus(200);
-
 });
-app.get("/tasmota/all",(req, res) => {
-  
- res.json(tasmCo.getTasmoDevList());
+app.get("/tasmota/all", (req, res) => {
+  res.json(tasmCo.getTasmoDevList());
 });
 
 let Enpoint = {
-  start: app.listen(EXport, () => {
+  startSecure: SecureServer.listen(EXport, () => {
     console.log(`API listening at http://localhost:${EXport}`);
     iQTT.subscribeTo("#"); //listen to all topics
   }),
+  startUnSecure: SecureServer.listen(EXport, () => {
+    console.log(`API listening at http://localhost:${EXport}`);
+    iQTT.subscribeTo("#"); //listen to all topics
+  })
 };
 export { Enpoint as HTTPAPI };
+export { app as appostolos }

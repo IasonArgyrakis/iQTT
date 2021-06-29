@@ -1,4 +1,3 @@
-Broker-API/cert/selfsigned.key
-Broker-API/cert/selfsigned.crt
+
 **/key.pem
-**/cert.pem 
+**/cert.pem
